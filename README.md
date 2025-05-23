@@ -100,7 +100,8 @@ Dalam proyek ini, kami menggunakan beberapa metrik evaluasi untuk mengukur perfo
 - Precision: Mengukur ketepatan model dalam memprediksi kelas positif, yaitu seberapa banyak prediksi positif yang benar-benar positif.
 - Recall: Mengukur kemampuan model dalam menangkap seluruh data positif yang sebenarnya, yaitu seberapa banyak data positif yang berhasil terdeteksi.
 - F1 Score: Merupakan rata-rata harmonis antara precision dan recall, yang memberikan keseimbangan antara kedua metrik tersebut.
-  | Model                           | Accuracy | Precision | Recall | F1 Score |
+  
+| Model                           | Accuracy | Precision | Recall | F1 Score |
 | ------------------------------- | -------- | --------- | ------ | -------- |
 | K-Nearest Neighbors             | 0.89     | 0.89      | 0.89   | 0.89     |
 | ExtraTreesClassifier            | 0.85     | 0.85      | 0.85   | 0.85     |
