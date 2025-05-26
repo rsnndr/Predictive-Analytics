@@ -52,29 +52,33 @@ Pada tahap ini, dilakukan serangkaian proses persiapan data sebelum digunakan da
 
 1. Menghapus Kolom yang Tidak Relevan
    
-Kolom A_id dihapus karena hanya berfungsi sebagai identifikasi dan tidak memberikan informasi yang berguna untuk prediksi kualitas.
+Kolom A_id dihapus dari dataset karena hanya berfungsi sebagai penanda atau identifikasi data saja. Kolom ini tidak mengandung informasi yang relevan atau berkontribusi dalam proses prediksi kualitas, sehingga penghapusannya bertujuan untuk menyederhanakan data dan meningkatkan efisiensi pemodelan.
 
 2. Menangani Missing Value
    
-Pengecekan dilakukan untuk mengetahui apakah terdapat data yang hilang (missing values). Jika ditemukan, maka akan dilakukan penanganan seperti:
-  - Mengisi nilai kosong dengan rata-rata/median jika merupakan fitur numerik.
-  - Menghapus baris jika data terlalu banyak yang kosong dan tidak dapat diimputasi secara tepat.
+Pengecekan missing values dilakukan untuk mengetahui apakah terdapat data yang hilang dalam dataset. Apabila ditemukan nilai kosong, langkah penanganan yang dilakukan adalah mengisi nilai tersebut dengan rata-rata atau median pada fitur numerik agar data tetap lengkap dan dapat dianalisis. Namun, jika jumlah data kosong pada suatu baris terlalu banyak dan imputasi tidak memungkinkan secara akurat, maka baris tersebut akan dihapus untuk menjaga kualitas dan konsistensi data.
 
-3. Menangani Outlier
-
-Outlier pada fitur numerik seperti Weight, Sweetness, atau Acidity dapat mempengaruhi hasil model. Oleh karena itu, dilakukan deteksi menggunakan metode statistik (seperti IQR).
+3. Mengubah Tipe Data
+Pada tahap preprocessing, kolom Acidity diubah tipe datanya menjadi float64 menggunakan fungsi .astype(). Hal ini dilakukan agar data pada kolom tersebut dapat diproses secara numerik untuk analisis statistik dan pemodelan selanjutnya, karena sebelumnya data tersebut masih dalam format string atau tipe lain yang tidak mendukung operasi matematika.
 
 4. Encoding Label Target
 
 Variabel Quality merupakan label kategorikal yang terdiri dari kelas-kelas seperti baik dan buruk. Oleh karena itu, dilakukan proses label encoding untuk mengubah nilai-nilai tersebut menjadi format numerik agar dapat diproses oleh algoritma machine learning (contohnya: baik = 1, buruk = 0).
 
-5. Normalisasi Data
+5. Menangani Outlier
 
-Fitur-fitur numerik seperti Weight, Sweetness, dan Acidity memiliki skala yang berbeda-beda, maka dilakukan normalisasi agar semua fitur berada pada rentang nilai yang seragam. Normalisasi ini membantu meningkatkan performa model terutama yang berbasis jarak seperti KNN.
+Pada tahap ini, outlier atau data ekstrim pada variabel numerik diidentifikasi dan dihapus menggunakan metode Interquartile Range (IQR). Data yang berada di luar rentang Q1 - 1.5*IQR sampai Q3 + 1.5*IQR dianggap outlier dan dihilangkan. Proses ini bertujuan untuk meningkatkan kualitas data agar analisis dan pemodelan lebih akurat dan tidak terpengaruh oleh nilai-nilai ekstrem.
 
-6. Train-Test Split
+6. Memisahkan fitur dan target
+Pada tahap ini, data dipisahkan menjadi dua bagian, yaitu fitur (X) dan target (y). Fitur adalah kumpulan variabel yang digunakan sebagai input untuk model, sedangkan target adalah variabel yang ingin diprediksi, dalam hal ini kolom Quality. Pemisahan ini diperlukan agar model dapat mempelajari pola dari fitur untuk memprediksi target dengan tepat.
+
+7. Train-Test Split
 
 Dataset dibagi menjadi dua bagian, yaitu data latih (train) sebanyak 80% dan data uji (test) sebanyak 20%. Pembagian ini bertujuan agar model dapat belajar dari data latih dan kemudian diuji performanya pada data uji yang belum pernah dilihat sebelumnya. Dengan begitu, kita bisa mengevaluasi kemampuan model dalam memprediksi data baru secara objektif.
+
+8. Normalisasi Data
+
+Fitur-fitur numerik seperti Weight, Sweetness, dan Acidity memiliki skala yang berbeda-beda, maka dilakukan normalisasi agar semua fitur berada pada rentang nilai yang seragam. Normalisasi ini membantu meningkatkan performa model terutama yang berbasis jarak seperti KNN.
 
 ## Modeling
 
@@ -192,3 +196,17 @@ FN = False Negative ( jumlah data positif yang salah diprediksi sebagai negatif)
 | LGBMClassifier                  | 0.88     | 0.88      | 0.88   | 0.88     |
 | Support Vector Classifier (SVC) | 0.88     | 0.88      | 0.88   | 0.88     |
 | LabelSpreading                  | 0.88     | 0.88      | 0.88   | 0.88     |
+
+Penjelasan Hasil: 
+- Model K-Nearest Neighbors (KNN) memiliki performa terbaik dengan nilai accuracy, precision, recall, dan f1 score tertinggi yaitu 0.89, sehingga sangat baik dalam mengklasifikasikan kualitas apel secara otomatis dan konsisten.
+
+- Model lain seperti LGBMClassifier, SVC, dan LabelSpreading juga menunjukkan performa yang cukup baik dengan nilai metrik sekitar 0.88, sedangkan ExtraTreesClassifier memiliki performa sedikit lebih rendah yaitu 0.85.
+
+- Penggunaan metrik precision dan recall penting agar model tidak hanya akurat secara keseluruhan, tetapi juga teliti dalam memprediksi kelas kualitas apel, sehingga mengurangi kesalahan klasifikasi yang dapat berdampak ekonomi.
+
+- F1 Score sebagai keseimbangan antara precision dan recall memberikan gambaran performa model yang komprehensif, terutama dalam kasus data yang mungkin tidak seimbang.
+
+Kesimpulan:
+- Metrik evaluasi yang digunakan sudah sesuai dengan konteks klasifikasi kualitas apel, di mana ketepatan dan kemampuan deteksi kelas positif sangat penting untuk menghindari kesalahan klasifikasi yang dapat merugikan. Dari hasil evaluasi, KNN menjadi pilihan model paling efektif untuk masalah ini.
+
+
