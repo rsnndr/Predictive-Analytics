@@ -140,6 +140,11 @@ Kekurangan:
 4. SVC (Support Vector Classifier)
 adalah salah satu jenis algoritma dari Support Vector Machine (SVM) yang digunakan untuk tugas klasifikasi. SVC bekerja dengan mencari hyperplane terbaik yang memisahkan data dari kelas yang berbeda dengan margin terbesar. Jika data tidak dapat dipisahkan secara linear, SVC dapat menggunakan kernel trick (seperti RBF, polynomial, sigmoid) untuk memetakan data ke dimensi yang lebih tinggi agar bisa dipisahkan.
 
+Parameter yang digunakan pada proyek ini adalah:
+  - C=1.0
+  - kernel='rbf'
+  - gamma='scale'
+
 Kelebihan:
    - Efektif pada data berdimensi tinggi.
    - Bisa digunakan untuk data non-linear dengan kernel.
@@ -152,6 +157,11 @@ Kekurangan:
 
 5. LabelSpreading
 adalah algoritma semi-supervised learning yang digunakan untuk mengklasifikasikan data dengan cara menyebarkan label dari data yang sudah berlabel ke data yang belum berlabel berdasarkan kedekatan atau kemiripan antar data. Algoritma ini memanfaatkan struktur grafik data untuk memprediksi label data tanpa label dengan iterasi penyebaran informasi.
+
+Parameter yang digunakan pada proyek ini adalah:
+  - kernel='knn'
+  - n_neighbors=3
+  - alpha=0.2
 
 Kelebihan:
    - Bisa digunakan saat label sangat sedikit.
