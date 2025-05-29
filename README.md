@@ -159,8 +159,8 @@ Kekurangan:
 adalah algoritma semi-supervised learning yang digunakan untuk mengklasifikasikan data dengan cara menyebarkan label dari data yang sudah berlabel ke data yang belum berlabel berdasarkan kedekatan atau kemiripan antar data. Algoritma ini memanfaatkan struktur grafik data untuk memprediksi label data tanpa label dengan iterasi penyebaran informasi.
 
 Parameter yang digunakan pada proyek ini adalah:
-  - kernel='knn'
-  - n_neighbors=3
+  - kernel='rbf'
+  - n_neighbors=7
   - alpha=0.2
 
 Kelebihan:
